@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="{% static 'blog/css/style.css' %}" type="text/css">
+</head>
+
+<body>
+<div id="container">
+
+<!--left side-->
+{%include 'left_side.html'%}
+<!--left_side-->
+
+
+<!--right side-->
+<div id="right_container">
+	<div id="right_content">
+		{% for article in articles %}
+		<div class="article_bre">
+			<h2><a class="title_bre" href="{% url 'blog:article' article.id %}">{{article.title}}</a></h2>
+			<p class="article_content_bre">
+				{%autoescape off%}{{article.describe}}{% endautoescape %}
+				<a href="{% url 'blog:article' article.id %}" class="read_more">阅读全文...</a>
+			</p>
+		</div>
+		<div class="divide_bar"></div>
+		{% endfor %}
+		<div class="page_nav">
+			{% for page in pages %}
+			<a href="{%url 'blog:home' page %}" {% ifequal current_page page %} id="active_page"{%endifequal%}><li>{{page}}</li></a>
+			{% endfor %}
+			<div class="clear_float"></div>
+		</div>
+	</div><!--right_content-->
+</div><!--right_container-->
+
+<div class="clear_float"></div>
+</div> <!--container-->
+<script  charset="utf-8" src="{% static 'blog/js/script.js' %}"></script>
+</body>
+</html>

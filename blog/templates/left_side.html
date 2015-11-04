@@ -1,0 +1,36 @@
+{% load static %}
+<div id="left_container">
+	<div id="left_content">
+		<div id="mast_head">
+		<a href="{% url 'blog:home' '1'%}"><img id="logo" src="{% static 'blog/img/logo.png'%}"></img></a>
+		<p id="site_description">libijiang的博客</p>
+		</div><!--mast_head-->
+		<div id="left_sidebar">
+			<div class="sidebar_box">
+				<h4>博文分类</h4>
+				{% for tag in tags %}
+					<ul><a href="{% url 'blog:tag' tag.id '1' %}" {% ifequal tag.id tag_choice.id %}id="choice"{% endifequal %}>{{tag.name}}</a></ul>
+				{% endfor %}
+			</div>
+			<div class="sidebar_box">
+				<h4>博文归档</h4>
+				{% for date in dates %}
+					<ul><a href="{% url 'blog:archive_date' date.id '1' %}" {% ifequal date.id date_choice.id %}id="choice"{% endifequal %}>{{date.date.year}}年{{date.date.month}}月</a></ul>
+				{% endfor %}
+			</div>
+			<div class="sidebar_box">
+				<h4>个人项目</h4>
+				{% for proj in projs%}
+					<ul><a href="{{proj.url}}">{{proj.name}}</a></ul>
+				{% endfor %}
+			</div>
+			<div class="sidebar_box">
+				<h4><a href="{% url 'blog:about' %}" id="about">关于&留言</a></h4>
+			</div>
+			<div class="sidebar_box">
+				<form method="get" id="search_bar" action="#"><input type="search" name="search" placeholder="Search ...">
+				</form>
+			</div>
+		</div><!--left_sidebar-->
+	</div><!--left_content-->
+</div>

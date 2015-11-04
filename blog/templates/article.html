@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="{% static 'blog/css/style.css' %}" type="text/css">
+</head>
+
+<body>
+<div id="container">
+
+<!--left side-->
+{%include 'left_side.html'%}
+<!--left_side-->
+
+
+<!--right side-->
+<div id="right_container">
+	<div id="right_content">
+		
+		<div id="header">
+			<h1 id="title">{{article.title}}</h1>
+			<div class="article_nav">
+				{% if next_article_id %}
+				<a href="{% url 'blog:article' next_article_id %}"><li><</li></a>
+				{% endif %}
+				{% if  previous_article_id %}
+				<a href="{% url 'blog:article' previous_article_id %}"><li>></li></a>
+				{% endif %}
+				<div class="clear_float"></div>
+			</div>
+			<div id="article_attributes">
+				<li class="article_attribute">
+					<img src="{% static 'blog/img/time.png' %}"></img>
+				</li>
+				<li class="article_attribute"><a href="{% url 'blog:archive_date' article.date.id '1' %}">{{article.date}}</a></li>
+				<li class="article_attribute">
+					<img src="{% static 'blog/img/tag.png' %}"></img>
+				</li>
+				{% for tag in article.tag.all %}
+				<li class="article_attribute"><a href="{% url 'blog:tag' tag.id '1' %}">{{tag.name}}&nbsp;</a></li>
+				{% endfor %}
+			</div>
+		</div><!--header-->
+
+		<div id="main">
+			<div class="divide_bar"></div>
+			<div class="article_content">
+				{%autoescape off%}
+				{{article.describe}}
+				{{article.content}}
+				{% endautoescape %}
+			</div><!--article_content-->
+		</div><!--main-->
+
+		<div id="relate_articles">
+			<h2>相关博文</h2>
+			<div class="divide_bar"></div>
+			{% for article in article_relates %}
+			<li>
+				<a href="{% url 'blog:article' article.id %}"><img src="{{article.head_img}}"></img></a>
+				<h2 class="img_title"><a href="{% url 'blog:article' article.id %}">{{article.title}}</a></h2>
+				{%autoescape off%}{{article.describe|truncatechars:50 }}{% endautoescape %}
+			</li>
+			{% endfor %}
+			<div class="clear_float"></div>
+		</div>
+		<!--relate_articles-->
+
+		{% load duoshuo_tags %}
+		{% duoshuo_comments %}
+
+
+	</div><!--right_content-->
+</div><!--right_container-->
+
+<div class="clear_float"></div>
+</div> <!--container-->
+<script  charset="utf-8" src="{% static 'blog/js/script.js' %}"></script>
+</body>
+</html>

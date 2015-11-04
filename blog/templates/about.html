@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="{% static 'blog/css/style.css' %}" type="text/css">
+<style type="text/css">
+	.sidebar_box #about{color: #e32d40;}
+</style>
+</head>
+
+<body>
+<div id="container">
+
+<!--left side-->
+{%include 'left_side.html'%}
+<!--left_side-->
+
+
+<!--right side-->
+<div id="right_container">
+	<div id="right_content">
+		<div class="article_content">
+			<p>一直想写个自我介绍，可惜我还是不太善于表达，文章写得更是烂，就暂且空白了。</p>
+			<p>我自己比较喜欢python这门编程语言，你看到的这个博客就是我采用django框架编写的，我还喜欢数据挖掘领域。通过blog是想记录下我的学习、工作、生活的点滴，同时也是希望能提高自己的写作水平。如果你想我和交流可以通过以下几种方式找到我：	
+				<li>邮箱:190lbj&163.com(把&替换为@)</li>
+				<li>微博:<a href="http://weibo.com/u/2474769937">ynlbj</a></li>
+				<li>或是直接在博客留言</li>
+			</p>
+		</div>
+		{% load duoshuo_tags %}
+		{% duoshuo_comments %}
+	</div><!--right_content-->
+</div><!--right_container-->
+
+<div class="clear_float"></div>
+</div> <!--container-->
+
+<script  charset="utf-8" src="{% static 'blog/js/script.js' %}"></script>
+</body>
+</html>
