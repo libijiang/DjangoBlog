@@ -1,2 +1,2 @@
 *.DS_Store
-./web_app/info.py
+web_app/info.py
